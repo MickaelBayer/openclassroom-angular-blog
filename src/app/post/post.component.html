@@ -1,0 +1,12 @@
+<li [ngClass]="{'list-group-item': true, 
+                'list-group-item-success': post.getLoveIts() > 0,
+                'list-group-item-danger': post.getLoveIts() < 0}">
+  <!--to have the date on the right of the div-->
+  <div class="d-flex w-100 justify-content-between">
+    <h4 [ngStyle]="{color: getColor()}">{{post.getTitle()}}</h4>
+    <small class="text-muted">{{post.getCreated_at() | date: 'short'}}</small>
+  </div>
+  <p>{{post.getContent()}}</p>
+  <button class="btn btn-success btn-sm" (click)="onLike()">Love It !</button>
+  <button class="btn btn-danger btn-sm ml-1" (click)="onDislike()">Don't love It !</button>
+</li>
