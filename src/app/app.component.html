@@ -1,13 +1,9 @@
+<div class="container border-bottom shadow mb-3 p-3 text-center font-italic rounded">
+    <h1>Welcome to my blog !</h1>
+</div>
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <h2>My blog's posts</h2>
-      
-      <ul class="list-group">
-        <!--display post-list.component with the given array of posts-->
-        <app-post-list [posts]="posts"></app-post-list>
-      </ul>
-
-    </div>
-  </div>
+  <app-header></app-header>
+</div>
+<div class="container">
+    <router-outlet></router-outlet>
 </div>

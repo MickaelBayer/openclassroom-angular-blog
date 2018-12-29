@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Post } from '../models/Post.model';
+import { PostsService } from '../services/posts.service';
+
 
 @Component({
   selector: 'app-post',
@@ -8,66 +11,42 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PostComponent implements OnInit {
 
   @Input() post: Post;
+  datePost : Date;
 
-  constructor() {
+  constructor(private postsService: PostsService) {
   }
 
   ngOnInit() {
+    if (this.post){
+      //to use the pipe function, recreate the date with the right format from the firebase data
+      this.datePost = new Date(this.post.created_at);
+    }
   }
 
   //used to get the color of the current post's text
   getColor(){
-    if (this.post.getLoveIts() === 0) {
+    if (this.post.loveIts === 0) {
       return 'black';
-    } else if (this.post.getLoveIts() < 0) {
+    } else if (this.post.loveIts < 0) {
       return 'red';
-    } else if (this.post.getLoveIts() > 0) {
+    } else if (this.post.loveIts > 0) {
       return 'green';
     }
   }
 
   //called on the like button, increment post.loveIts by 1;
   onLike() {
-    this.post.addLoveIts();
+    this.postsService.plusLoveIts(this.post);
   }
 
   //called on the dislike button, decrement post.loveIts by 1;
   onDislike() {
-    this.post.minusLoveIts();
+    this.postsService.minusLoveIts(this.post);
   }
-}
 
-//our type post
-export class Post {
-
-  private title: string;
-  private content: string;
-  private loveIts: number;
-  private created_at: Date;
-
-  public constructor(title: string, content: string) {
-    this.title = title;
-    this.content = content
-    this.loveIts = 0;
-    this.created_at = new Date();
-  }
-  
-  public getTitle() {
-    return this.title;
-  }
-  public getContent() {
-    return this.content;
-  }
-  public getLoveIts() {
-    return this.loveIts;
-  }
-  public getCreated_at() {
-    return this.created_at;
-  }
-  public addLoveIts() {
-    this.loveIts++;
-  }
-  public minusLoveIts() {
-    this.loveIts--;
+  //called on the Suppression button
+  onDeletePost(post: Post) {
+    this.postsService.removePost(post);
+    
   }
 }

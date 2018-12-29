@@ -1,2 +1,13 @@
-<!--for each post of the array, display post.component of the given post-->
-<app-post *ngFor="let post of posts" [post]="post"></app-post>
+  <div class="row">
+      <div class="col">
+      <h2>My blog's posts</h2>
+      <ul class="list-group">
+        <!--for each post of the array, display post.component of the given post-->
+        <app-post *ngFor="let post of posts" [post]="post"></app-post>
+      </ul>
+    </div>
+  </div>
+
+
+
+
